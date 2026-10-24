@@ -1,0 +1,14 @@
+[Unit]
+Description=GNOME three-finger drag helper
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/gnome-three-finger-drag --speed 1.0
+Restart=on-failure
+RestartSec=2
+
+[Install]
+# Intentionally empty: the GNOME extension starts and stops this unit so that
+# disabling the extension restores the stock gesture and stops input injection.

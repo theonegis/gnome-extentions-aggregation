@@ -1,0 +1,10 @@
+{
+  "name": "Topbar Running Apps Indicator",
+  "description": "在顶栏显示正在运行的应用图标。点击图标切换到对应应用。图标默认 18 像素，间距默认 14 像素，都可以在设置中调整。",
+  "uuid": "topbar-running-apps-indicator@tanzhenyu",
+  "url": "https://github.com/theonegis/gnome-extentions-aggregation",
+  "shell-version": ["50"],
+  "settings-schema": "org.gnome.shell.extensions.topbar-running-apps",
+  "version": 1,
+  "version-name": "1"
+}

@@ -1,0 +1,24 @@
+name: three-finger-drag
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gnome-three-finger-drag
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y meson ninja-build pkg-config libinput-dev libudev-dev shellcheck
+      - name: Configure
+        run: meson setup build --buildtype=release
+      - name: Build
+        run: meson compile -C build
+      - name: Test
+        run: meson test -C build --print-errorlogs
+      - name: Check shell scripts
+        run: shellcheck scripts/*.sh tests/*.sh

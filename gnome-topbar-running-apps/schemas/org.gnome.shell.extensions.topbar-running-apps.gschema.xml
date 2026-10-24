@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.topbar-running-apps" path="/org/gnome/shell/extensions/topbar-running-apps/">
+    <key type="i" name="icon-size">
+      <default>18</default>
+      <range min="8" max="128"/>
+      <summary>Icon size in pixels</summary>
+    </key>
+    <key type="i" name="icon-spacing">
+      <default>14</default>
+      <range min="0" max="64"/>
+      <summary>Space between icons in pixels</summary>
+    </key>
+  </schema>
+</schemalist>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.move-cursor-among-monitors" path="/org/gnome/shell/extensions/move-cursor-among-monitors/">
+    <key name="move-cursor-left" type="as">
+      <default>['&lt;Super&gt;&lt;Control&gt;Left']</default>
+      <summary>Move pointer to the left monitor</summary>
+    </key>
+    <key name="move-cursor-right" type="as">
+      <default>['&lt;Super&gt;&lt;Control&gt;Right']</default>
+      <summary>Move pointer to the right monitor</summary>
+    </key>
+    <key name="move-cursor-up" type="as">
+      <default>['&lt;Super&gt;&lt;Control&gt;Up']</default>
+      <summary>Move pointer to the up monitor</summary>
+    </key>
+    <key name="move-cursor-down" type="as">
+      <default>['&lt;Super&gt;&lt;Control&gt;Down']</default>
+      <summary>Move pointer to the down monitor</summary>
+    </key>
+  </schema>
+</schemalist>

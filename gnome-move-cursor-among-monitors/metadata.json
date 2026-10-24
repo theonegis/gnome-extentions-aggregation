@@ -1,0 +1,11 @@
+{
+  "uuid": "move-cursor-among-monitors@tanzhenyu",
+  "name": "Move Cursor Among Monitors",
+  "description": "Move the pointer to a neighboring monitor with configurable directional shortcuts.",
+  "shell-version": [
+    "50"
+  ],
+  "version": 2,
+  "settings-schema": "org.gnome.shell.extensions.move-cursor-among-monitors",
+  "url": "https://github.com/theonegis/gnome-extentions-aggregation"
+}
