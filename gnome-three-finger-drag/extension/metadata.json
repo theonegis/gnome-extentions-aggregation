@@ -1,8 +1,0 @@
-{
-  "uuid": "three-finger-drag@example.local",
-  "name": "Three Finger Drag",
-  "description": "Blocks GNOME's default three-finger swipe so a libinput helper can implement macOS-style dragging.",
-  "shell-version": ["50"],
-  "version": 1,
-  "url": "https://github.com/theonegis/gnome-extentions-aggregation"
-}

@@ -29,6 +29,7 @@ export default class TopbarRunningAppsIndicator extends Extension {
         this._settings.connectObject(
             'changed::icon-size', () => this._updateIconSizes(),
             'changed::icon-spacing', () => this._updateSpacing(),
+            'changed::grayscale-icons', () => this._updateDesaturation(),
             this);
         this._updateSpacing();
 
@@ -179,6 +180,7 @@ export default class TopbarRunningAppsIndicator extends Extension {
             y_align: Clutter.ActorAlign.CENTER,
         });
         button.set_child(button._icon);
+        button._desaturateEffect = null;
         button.connect('clicked', () => this._activate(app));
 
         app.connectObject('windows-changed', () => this._queueRedisplay(), button);
@@ -186,11 +188,40 @@ export default class TopbarRunningAppsIndicator extends Extension {
     }
 
     _setIcon(button, size) {
-        if (button._iconSize === size && button._icon.child)
+        if (!(button._iconSize === size && button._icon.child)) {
+            button._iconSize = size;
+            button._icon.child = button._app.create_icon_texture(size);
+            button._desaturateEffect = null;
+        }
+
+        this._applyDesaturation(button);
+    }
+
+    _updateDesaturation() {
+        if (!this._buttons)
             return;
 
-        button._iconSize = size;
-        button._icon.child = button._app.create_icon_texture(size);
+        for (const button of this._buttons.values())
+            this._applyDesaturation(button);
+    }
+
+    _applyDesaturation(button) {
+        const icon = button._icon?.child;
+        if (!icon)
+            return;
+
+        const grayscale = this._settings.get_boolean('grayscale-icons');
+        if (grayscale === Boolean(button._desaturateEffect))
+            return;
+
+        if (!grayscale) {
+            icon.remove_effect(button._desaturateEffect);
+            button._desaturateEffect = null;
+            return;
+        }
+
+        button._desaturateEffect = new Clutter.DesaturateEffect({factor: 1});
+        icon.add_effect(button._desaturateEffect);
     }
 
     _updateIconSizes() {

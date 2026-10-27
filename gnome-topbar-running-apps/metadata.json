@@ -5,6 +5,6 @@
   "url": "https://github.com/theonegis/gnome-extentions-aggregation",
   "shell-version": ["50"],
   "settings-schema": "org.gnome.shell.extensions.topbar-running-apps",
-  "version": 1,
-  "version-name": "1"
+  "version": 2,
+  "version-name": "2"
 }

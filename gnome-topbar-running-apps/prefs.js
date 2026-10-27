@@ -1,4 +1,5 @@
 import Adw from 'gi://Adw';
+import Gio from 'gi://Gio';
 
 import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
@@ -28,6 +29,17 @@ export default class TopbarRunningAppsPrefs extends ExtensionPreferences {
             lower: 0,
             upper: 64,
         });
+
+        const grayscaleRow = new Adw.SwitchRow({
+            title: '黑白图标',
+            subtitle: '去掉颜色，与顶栏上的其他图标一致',
+        });
+        group.add(grayscaleRow);
+        settings.bind(
+            'grayscale-icons',
+            grayscaleRow,
+            'active',
+            Gio.SettingsBindFlags.DEFAULT);
 
         window.add(page);
     }

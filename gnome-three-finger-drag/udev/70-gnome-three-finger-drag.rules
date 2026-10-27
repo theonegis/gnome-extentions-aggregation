@@ -1,5 +1,0 @@
-# Grant the active local desktop user access only to touchpad event devices.
-SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT_TOUCHPAD}=="1", TAG+="uaccess"
-
-# The helper creates a virtual mouse. uaccess is resolved by systemd-logind.
-SUBSYSTEM=="misc", KERNEL=="uinput", TAG+="uaccess"

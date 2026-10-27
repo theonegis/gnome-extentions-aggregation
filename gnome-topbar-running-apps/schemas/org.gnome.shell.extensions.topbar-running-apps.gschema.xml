@@ -11,5 +11,9 @@
       <range min="0" max="64"/>
       <summary>Space between icons in pixels</summary>
     </key>
+    <key type="b" name="grayscale-icons">
+      <default>false</default>
+      <summary>Show application icons in grayscale</summary>
+    </key>
   </schema>
 </schemalist>

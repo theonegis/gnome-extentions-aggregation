@@ -1,11 +1,11 @@
 # GNOME Extensions
 
-这是一组用于 GNOME Shell 50 的扩展，放在同一个仓库里维护。每个扩展仍是独立目录，可以单独安装、启用和卸载。
+这是一组用于 GNOME 的扩展与相关工具，放在同一个仓库里维护。多数是 GNOME Shell 扩展；三指拖动改为安装 libinput 原生能力的 shim。
 
-| 目录 | 扩展 | 作用 |
+| 目录 | 名称 | 作用 |
 | --- | --- | --- |
 | [gnome-move-cursor-among-monitors](gnome-move-cursor-among-monitors) | Move Cursor Among Monitors | 用方向快捷键把光标移到相邻屏幕中心 |
-| [gnome-three-finger-drag](gnome-three-finger-drag) | Three Finger Drag | 在 Wayland 上用三指拖拽，接近 macOS 的触控板拖动 |
+| [gnome-three-finger-drag](gnome-three-finger-drag) | Three Finger Drag | 打开 libinput 原生三指拖拽（vendored [enable-3fg-drag](https://github.com/joaodriessen/enable-3fg-drag)） |
 | [gnome-topbar-running-apps](gnome-topbar-running-apps) | Topbar Running Apps Indicator | 在顶栏显示正在运行的应用图标，点击切换到对应应用 |
 
 ```sh
@@ -31,34 +31,28 @@ gnome-extensions enable move-cursor-among-monitors@tanzhenyu
 
 ## Three Finger Drag
 
-三指在触控板上移动时按住鼠标左键并移动指针。抬起手指后，按键默认还会保持 2 秒，方便在触控板边缘重新落指并继续拖动。扩展会拦住 GNOME 默认的三指滑动手势，实际拖拽由一个 libinput / uinput 辅助程序完成。
+打开 libinput 自带的三指拖拽（需 libinput ≥ 1.28，建议 ≥ 1.31）。慢速三指移动会拖动指针下的内容；快速三指轻扫仍可留给 Overview / 工作区。不再使用自定义 uinput helper，也不再拦截 GNOME 的三指手势。
 
-这个扩展需要编译原生辅助程序，并安装 udev 规则。Fedora 上可以先安装构建依赖：
+实现来自 Joao Driessen 的 [enable-3fg-drag](https://github.com/joaodriessen/enable-3fg-drag)（MIT），本仓库 vendored 了该 shim。Fedora 上可先安装：
 
 ```sh
-sudo dnf install git gcc meson ninja-build pkgconf-pkg-config libinput-devel systemd-devel
+sudo dnf install git gcc make pkgconf-pkg-config libinput-devel
 ```
 
 然后：
 
 ```sh
 cd gnome-three-finger-drag
-./scripts/install.sh
+./install.sh
 ```
 
-安装脚本会用 sudo 写入 `/etc/udev/rules.d/`。辅助程序、用户服务和扩展装在当前用户的 `~/.local` 下。注销并重新登录后启用：
-
-```sh
-gnome-extensions enable three-finger-drag@example.local
-```
-
-设备权限、延迟时间和卸载步骤见该目录下的 [README](gnome-three-finger-drag/README.md)。许可证是 [Mozilla Public License 2.0](gnome-three-finger-drag/LICENSE)。
+脚本会用 sudo 安装 `/usr/lib/libenable-3fg-drag.so`，并在 GNOME 上写入 `/etc/ld.so.preload`。注销并重新登录后生效。说明与卸载见该目录下的 [README](gnome-three-finger-drag/README.md)。
 
 ## Topbar Running Apps Indicator
 
 在顶栏左侧显示正在运行的应用，每个应用一个图标。点击图标会切到该应用最近使用的窗口；如果这个应用已经在前台并且开了多个窗口，再点一次会在这些窗口之间轮换。
 
-图标大小默认 18 像素，图标间距默认 14 像素，都可以在扩展设置里调整。
+图标大小默认 18 像素，图标间距默认 14 像素。设置里还有一个「黑白图标」开关，打开后所有应用图标都会去掉颜色，用来和顶栏上的其他图标保持一致。默认是彩色。
 
 ```sh
 cd gnome-topbar-running-apps
